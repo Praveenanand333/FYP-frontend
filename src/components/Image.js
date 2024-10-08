@@ -4,7 +4,7 @@ function Image(){
         <>
         <div>
         <h3>Image Data</h3>
-        <input type="file" name="image" onChange={handleInputChange} />
+        <input type="file" name="image" />
       </div>
         </>
     )

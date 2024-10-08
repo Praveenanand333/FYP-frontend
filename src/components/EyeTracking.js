@@ -4,7 +4,7 @@ function EyeTracking(){
         <>
         <div>
           <h3>Eye Tracking Data</h3>
-          <input type="text" name="eye_tracking" placeholder="Eye Tracking data" onChange={handleInputChange} />
+          <input type="text" name="eye_tracking" placeholder="Eye Tracking data"  />
         </div>
         </>
     )
