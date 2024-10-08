@@ -1,6 +1,10 @@
 import React, { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import Aq10 from './AQ10';
+import Image from './Image';
+import EEG from './EEG';
+import EyeTracking from './EyeTracking';
 
 function FormPage() {
   const location = useLocation();
@@ -26,30 +30,10 @@ function FormPage() {
   return (
     <div>
       <h1>Enter Data</h1>
-      {selectedModals.includes('Image') && (
-        <div>
-          <h3>Image Data</h3>
-          <input type="file" name="image" onChange={handleInputChange} />
-        </div>
-      )}
-      {selectedModals.includes('EEG') && (
-        <div>
-          <h3>EEG Data</h3>
-          <input type="text" name="eeg" placeholder="EEG data" onChange={handleInputChange} />
-        </div>
-      )}
-      {selectedModals.includes('Behavioral') && (
-        <div>
-          <h3>Behavioral Data</h3>
-          <input type="text" name="behavior" placeholder="Behavior data" onChange={handleInputChange} />
-        </div>
-      )}
-      {selectedModals.includes('EyeTracking') && (
-        <div>
-          <h3>Eye Tracking Data</h3>
-          <input type="text" name="eye_tracking" placeholder="Eye Tracking data" onChange={handleInputChange} />
-        </div>
-      )}
+      {selectedModals.includes('Image') && <Image/>}
+      {selectedModals.includes('EEG') && <EEG/>}
+      {selectedModals.includes('Behavioral') && <Aq10/>}
+      {selectedModals.includes('EyeTracking') && <EyeTracking/>}
       <button onClick={handleSubmit}>Submit</button>
     </div>
   );
