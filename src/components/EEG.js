@@ -1,8 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import axios from "axios";
+import { PredictionContext } from "../PredictionContext"; // Adjust the import based on your file structure
 
 function EEGUpload() {
   const [eegFile, setEegFile] = useState(null);
+  const { addPredictionResult } = useContext(PredictionContext); // Access addPredictionResult from context
 
   const handleFileChange = (e) => {
     setEegFile(e.target.files[0]); 
@@ -25,6 +27,9 @@ function EEGUpload() {
         },
       });
       console.log("Prediction Result:", response.data);
+
+      // Add the prediction result to the context
+      addPredictionResult(response.data); // Update the context with the prediction result
     } catch (error) {
       console.error("Error uploading EEG data:", error);
     }

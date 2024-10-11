@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { usePrediction } from "./PredictContext"; 
 
 function Image() {
   const [imageFile, setImageFile] = useState(null);
+  const { addPredictionResult } = usePrediction(); 
 
   const handleFileChange = (e) => {
-    setImageFile(e.target.files[0]); 
+    setImageFile(e.target.files[0]);
   };
 
   const handleSubmit = async (e) => {
@@ -16,14 +18,16 @@ function Image() {
     }
 
     const formData = new FormData();
-    formData.append("file", imageFile); 
+    formData.append("file", imageFile);
 
     try {
       const response = await axios.post("http://127.0.0.1:5000/predict/image", formData, {
         headers: {
-          "Content-Type": "multipart/form-data", 
+          "Content-Type": "multipart/form-data",
         },
       });
+
+      addPredictionResult(response.data);
       console.log("Prediction Result:", response.data);
     } catch (error) {
       console.error("Error uploading image:", error);
@@ -37,7 +41,7 @@ function Image() {
         <input
           type="file"
           name="image"
-          accept="image/*" 
+          accept="image/*"
           onChange={handleFileChange}
           className="mb-4 border border-gray-300 rounded-md p-2 w-full"
         />

@@ -19,7 +19,7 @@ function Aq10() {
     ethnicity: "",
     relation: "",
   });
-
+  const { addPredictionResult } = useContext(PredictionContext);
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({
@@ -42,6 +42,7 @@ function Aq10() {
       const response = await axios.post('http://127.0.0.1:5000/predict/aq10', formData);
       console.log(formData);
       console.log("Prediction result:", response.data);
+      addPredictionResult(response.data)
     } catch (error) {
       console.error("Error submitting form data:", error);
     }
