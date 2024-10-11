@@ -28,13 +28,25 @@ function FormPage() {
   };
 
   return (
-    <div>
-      <h1>Enter Data</h1>
-      {selectedModals.includes('Image') && <Image/>}
-      {selectedModals.includes('EEG') && <EEG/>}
-      {selectedModals.includes('Behavioral') && <Aq10/>}
-      {selectedModals.includes('EyeTracking') && <EyeTracking/>}
-      <button onClick={handleSubmit}>Submit</button>
+    <div className="max-w-4xl mx-auto p-8 bg-gray-100 rounded-lg shadow-md">
+      <h1 className="text-2xl font-bold text-center mb-6">Enter Data for Prediction</h1>
+      <p className="text-gray-700 mb-4">
+        Please provide the necessary data for analysis. Select the relevant input methods below to upload your data.
+      </p>
+      <div className="space-y-4">
+        {selectedModals.includes('Image') && <Image />}
+        {selectedModals.includes('EEG') && <EEG />}
+        {selectedModals.includes('Behavioral') && <Aq10 />}
+        {selectedModals.includes('EyeTracking') && <EyeTracking />}
+      </div>
+      {/* <div className="mt-6">
+        <button
+          onClick={handleSubmit}
+          className="w-full bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600 transition duration-200"
+        >
+          Submit Data
+        </button>
+      </div> */}
     </div>
   );
 }

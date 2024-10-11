@@ -48,7 +48,7 @@ function Aq10() {
   };
 
   return (
-    <form className="max-w-4xl mx-auto p-6 bg-white rounded-lg shadow-lg" onSubmit={handleSubmit}>
+    <form className="max-w-6xl mx-auto p-6 bg-white rounded-lg shadow-lg" onSubmit={handleSubmit}>
       <h3 className="text-xl font-bold mb-4">Autism Spectrum Quotient (AQ-10) Questions</h3>
 
       {/* Question 1 */}
