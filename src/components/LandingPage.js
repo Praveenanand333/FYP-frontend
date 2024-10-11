@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-
+import img from '../Images/img1.jpg'
 function LandingPage() {
   const navigate = useNavigate();
 
@@ -9,8 +9,10 @@ function LandingPage() {
   };
 
   return (
-    <div className="home-page h-screen bg-cover bg-top bg-no-repeat p-8 font-serif text-left text-6xl text-shadow-lg">
-      <h1 className="text-white shadow-lg shadow-black mb-4">
+    <div className="home-page h-screen bg-cover bg-top bg-no-repeat p-8 font-serif text-left text-6xl text-shadow-lg"
+    style={{ backgroundImage: `url(${img})` }}
+    >
+      <h1 className="text-white  mb-4">
         AUTISM <br /> SPECTRUM DISORDER
       </h1>
       <div>

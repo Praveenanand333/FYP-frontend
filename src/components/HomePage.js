@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-
+import img1 from '../Images/img2.jpg';
 function HomePage() {
   const [selectedModals, setSelectedModals] = useState([]);
   const navigate = useNavigate();
@@ -19,7 +19,10 @@ function HomePage() {
   };
 
   return (
-    <div className="flex flex-col justify-start items-center h-screen bg-teal-50 p-6 mt-10">
+    <div
+      className="flex flex-col justify-start items-center h-screen p-6  bg-cover bg-center"
+      style={{ backgroundImage: `url(${img1})` }}
+    >
       {/* Outer Container */}
       <div className="flex justify-start items-center w-full pl-12">
         <div className="bg-gray-100 p-10 rounded-lg shadow-md w-96 text-center">

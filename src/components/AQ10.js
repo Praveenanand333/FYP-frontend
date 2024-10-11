@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import '../index.css'
+import { usePrediction } from "./PredictContext"; 
 function Aq10() {
   const [formData, setFormData] = useState({
     A1_Score: "",
@@ -19,7 +20,7 @@ function Aq10() {
     ethnicity: "",
     relation: "",
   });
-  const { addPredictionResult } = useContext(PredictionContext);
+  const { addPredictionResult } = usePrediction();
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({

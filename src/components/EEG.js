@@ -1,10 +1,10 @@
 import React, { useState, useContext } from "react";
 import axios from "axios";
-import { PredictionContext } from "../PredictionContext"; // Adjust the import based on your file structure
+import { usePrediction } from "./PredictContext";  // Adjust the import based on your file structure
 
 function EEGUpload() {
   const [eegFile, setEegFile] = useState(null);
-  const { addPredictionResult } = useContext(PredictionContext); // Access addPredictionResult from context
+  const { addPredictionResult } = usePrediction(); // Access addPredictionResult from context
 
   const handleFileChange = (e) => {
     setEegFile(e.target.files[0]); 
@@ -36,8 +36,8 @@ function EEGUpload() {
   };
 
   return (
-    <div className="max-w-md mx-auto p-6 bg-white rounded-lg shadow-lg">
-      <h3 className="text-xl font-bold mb-4">EEG Data Upload</h3>
+    <div className="max-w-md mx-auto p-6 bg-white rounded-lg shadow-lg mt-10">
+      <h3 className="text-xl font-bold mt-10 mb-4">EEG Data Upload</h3>
       <form onSubmit={handleSubmit}>
         <input
           type="file"
