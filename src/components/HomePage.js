@@ -23,16 +23,10 @@ function HomePage() {
       className="flex flex-col justify-start items-center h-screen p-6  bg-cover bg-center"
       style={{ backgroundImage: `url(${img1})` }}
     >
-      {/* Outer Container */}
       <div className="flex justify-start items-center w-full pl-12">
         <div className="bg-gray-100 p-10 rounded-lg shadow-md w-96 text-center">
-          {/* Heading */}
           <h1 className="text-2xl font-bold text-green-600 mb-4">Autism Predictor</h1>
-
-          {/* Subheading */}
           <p className="text-lg text-gray-600 mb-6">Select Data Modalities</p>
-
-          {/* Modalities Selection */}
           <div className="text-left mb-6">
             <div className="checkbox mb-2">
               <input
@@ -71,8 +65,6 @@ function HomePage() {
               Eye Tracking
             </div>
           </div>
-
-          {/* Next Button */}
           <button
             onClick={handleNext}
             className="bg-green-600 text-white py-2 px-6 rounded-md hover:bg-green-700 transition-all duration-300"

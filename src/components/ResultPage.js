@@ -1,9 +1,9 @@
 import React from 'react';
-import { usePrediction } from './PredictContext'; // Import the usePrediction hook
+import { usePrediction } from './PredictContext'; 
 import img from '../Images/asd1.jpg';
 
 function ResultPage() {
-  const { predictionResults } = usePrediction(); // Access prediction results from context
+  const { predictionResults } = usePrediction(); 
 
   return (
     <div className="bg-cover bg-center bg-no-repeat h-screen" style={{ backgroundImage: `url(${img})` }}>
