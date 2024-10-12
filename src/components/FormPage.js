@@ -20,8 +20,8 @@ function FormPage() {
 
   const handleSubmit = async () => {
     try {
-      const response = await axios.post('/api/predict', formData);
-      navigate('/result', { state: { result: response.data } });
+      
+      navigate('/result');
     } catch (error) {
       console.error('Error submitting form:', error);
     }
@@ -39,14 +39,14 @@ function FormPage() {
         {selectedModals.includes('Behavioral') && <Aq10 />}
         {selectedModals.includes('EyeTracking') && <EyeTracking />}
       </div>
-      {/* <div className="mt-6">
+      <div className="mt-6">
         <button
           onClick={handleSubmit}
           className="w-full bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600 transition duration-200"
         >
           Submit Data
         </button>
-      </div> */}
+      </div>
     </div>
   );
 }
