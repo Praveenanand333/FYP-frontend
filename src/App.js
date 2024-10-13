@@ -14,7 +14,7 @@ function App() {
     <PredictionProvider> 
       <Router>
         <Routes>
-          <Route path="/" element={<EyeTracking />} />
+          <Route path="/" element={<LandingPage />} />
           <Route path="/result" element={<ResultPage/>}/>
           <Route path="/home" element={<HomePage />} />
           <Route path="/form" element={<FormPage />} />
