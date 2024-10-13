@@ -8,12 +8,13 @@ import Aq10 from './components/AQ10';
 import Image from './components/Image';
 import EEG from './components/EEG';
 import LandingPage from './components/LandingPage';
+import EyeTracking from './components/EyeTracking';
 function App() {
   return (
     <PredictionProvider> 
       <Router>
         <Routes>
-          <Route path="/" element={<LandingPage />} />
+          <Route path="/" element={<EyeTracking />} />
           <Route path="/result" element={<ResultPage/>}/>
           <Route path="/home" element={<HomePage />} />
           <Route path="/form" element={<FormPage />} />
