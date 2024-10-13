@@ -87,7 +87,6 @@ const EyeTracking = () => {
       const result = await axios.post("http://127.0.0.1:5000/predict/et", data);
 
       console.log("results",result)
-      // Check the prediction result and display accordingly
       if (result.prediction === 1) {
         setOutput('Autism detected');
       } else {
@@ -97,8 +96,6 @@ const EyeTracking = () => {
       console.error('Error:', error);
       setOutput('An error occurred while predicting');
     }
-
-    // Create the output
     setOutput(`
       Trial: ${trial}
       Stimulus: ${stimulus}
