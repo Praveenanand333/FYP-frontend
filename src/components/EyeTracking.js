@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
+import Papa from "papaparse";
+import { usePrediction } from "./PredictContext";
 const EyeTracking = () => {
   const [trial, setTrial] = useState(1);
   const [stimulus, setStimulus] = useState(0);
@@ -41,9 +43,14 @@ const EyeTracking = () => {
   const [indexRight, setIndexRight] = useState(0);
   const [indexLeft, setIndexLeft] = useState(0);
   const [output, setOutput] = useState("");
-
+  const [etFile, setetFile] = useState(null);
+  const handleFileChange = (e) => {
+    setetFile(e.target.files[0]); 
+  };
+  const { addPredictionResult } = usePrediction();
   const handleSubmit = async () => {
-    const age = ageYears + ageMonths/12;
+    // Calculate manual values
+    const age = ageYears + ageMonths / 12;
     const diameter = pupilDiameterRight + pupilDiameterLeft;
     const pog = pointRightX + pointLeftX + pointRightY + pointLeftY;
     const gazeVector =
@@ -63,7 +70,8 @@ const EyeTracking = () => {
       pupilPositionLeftX +
       pupilPositionLeftY;
     const index = indexRight + indexLeft;
-    const data = {
+  
+    let data = {
       trial,
       stimulus,
       exportStartTime,
@@ -82,24 +90,64 @@ const EyeTracking = () => {
       pupilPosition,
       index,
     };
-    console.log(data)
+  
     try {
-      const result = await axios.post("http://127.0.0.1:5000/predict/et", data);
-
-      console.log("results",result)
-      if (result.prediction === 1) {
-        setOutput('Autism detected');
+      // Check if file is uploaded
+      if (etFile != null) {
+        // File is uploaded, read the file contents
+        const fileReader = new FileReader();
+        fileReader.onload = async (e) => {
+          const fileContent = e.target.result;
+  
+          // Parse the CSV content using PapaParse
+          Papa.parse(fileContent, {
+            header: true, // Expect headers
+            complete: async (results) => {
+              const parsedData = parseCSV(results.data); // Pass the parsed CSV to a function
+              data = parsedData; // Use parsed data
+  
+              // Send the parsed data to the backend
+              const result = await axios.post(
+                "http://127.0.0.1:5000/predict/et",
+                data
+              );
+              console.log("results", result);
+              addPredictionResult(result.data)
+              // if (result.data.prediction === 1) {
+              //   setOutput("Autism detected");
+              // } else {
+              //   setOutput("No Autism detected");
+              // }
+            },
+            error: (error) => {
+              console.error("Error parsing CSV:", error);
+              setOutput("Error parsing CSV");
+            },
+          });
+        };
+  
+        // Read the uploaded file as text
+        fileReader.readAsText(etFile);
       } else {
-        setOutput('No Autism detected');
+        // No file uploaded, use manually entered data
+        var result = await axios.post("http://127.0.0.1:5000/predict/et", data);
+        console.log("results", result);
+        if (result.data.prediction === 1) {
+          setOutput("Autism detected");
+        } else {
+          setOutput("No Autism detected");
+        }
       }
     } catch (error) {
-      console.error('Error:', error);
-      setOutput('An error occurred while predicting');
+      console.error("Error:", error);
+      setOutput("An error occurred while predicting");
     }
+  
+    // Display output (manually entered data or file data)
     setOutput(`
       Trial: ${trial}
       Stimulus: ${stimulus}
-      Start Time(ms):${exportStartTime}
+      Start Time(ms): ${exportStartTime}
       End Time(ms): ${exportEndTime}
       Color: ${color}
       Category Group: ${categoryGroup}
@@ -115,8 +163,45 @@ const EyeTracking = () => {
       Pupil Position: ${pupilPosition.toFixed(2)} px
       Index: ${index.toFixed(2)}
     `);
-
-    
+  };
+  
+  // Helper function to parse CSV data and extract necessary features
+  const parseCSV = (csvData) => {
+    const necessaryColumns = [
+      "trial",
+      "stimulus",
+      "exportStartTime",
+      "exportEndTime",
+      "color",
+      "categoryGroup",
+      "categoryRight",
+      "categoryLeft",
+      "gender",
+      "age",
+      "diameter",
+      "pog",
+      "gazeVector",
+      "pupilSize",
+      "eyePosition",
+      "pupilPosition",
+      "index",
+    ];
+  
+    // Get the first row (header) and extract required columns
+    const row = csvData[0]; // Assuming there's only one row of data
+    const parsedData = {};
+  
+    // Map CSV data to necessary keys
+    necessaryColumns.forEach((col) => {
+      if (row[col]) {
+        parsedData[col] = row[col];
+      }
+    });
+  
+    // Perform calculations as in manual data
+   
+  
+    return parsedData;
   };
 
   return (
@@ -127,7 +212,13 @@ const EyeTracking = () => {
         handleSubmit(); 
       }}></form>
      
-
+     <input
+          type="file"
+          name="et"
+          accept=".csv" 
+          onChange={handleFileChange}
+          className="mb-4 border border-gray-300 rounded-md p-2 w-full"
+        />
       <label className="flex items-center mt-4 w-full md:w-1/2 p-4">
       <span className="font-semibold">Start Time [ms]:</span>
         <input className="ml-4 border border-gray-300 border-2 "
@@ -529,9 +620,9 @@ const EyeTracking = () => {
       <button className="mt-4  bg-blue-600 text-white p-2 rounded hover:bg-blue-700 w-1/4" onClick={handleSubmit}>Submit</button>
 
       {/* Display the output */}
-      <div className="output">
+      {/* <div className="output">
         <pre>{output}</pre>
-      </div>
+      </div> */}
     </div>
   );
 };
