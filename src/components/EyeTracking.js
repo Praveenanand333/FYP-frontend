@@ -207,7 +207,7 @@ const EyeTracking = () => {
   return (
     <div className="max-w-6xl mx-auto p-6 bg-white rounded-lg shadow-lg flex flex-wrap">
       <h1 className="text-xl font-bold mb-4 w-full">Enter the Eye Tracking data</h1>
-      <form onSubmit={(e) => {
+      <form  onSubmit={(e) => {
         e.preventDefault();
         handleSubmit(); 
       }}></form>
