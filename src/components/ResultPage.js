@@ -6,11 +6,11 @@ function ResultPage() {
   const { predictionResults } = usePrediction(); 
 
   return (
-    <div className="bg-cover bg-center bg-no-repeat h-screen" style={{ backgroundImage: `url(${img})` }}>
-      <div className="container max-w-lg mx-auto bg-blue-100 bg-opacity-70 p-10 rounded-lg shadow-lg text-center backdrop-filter backdrop-blur-md">
+    <div className="h-screen bg-center bg-no-repeat bg-cover" style={{ backgroundImage: `url(${img})` }}>
+      <div className="container max-w-lg p-10 mx-auto text-center bg-blue-100 rounded-lg shadow-lg bg-opacity-70 backdrop-filter backdrop-blur-md">
         <header>
-          <h1 className="text-blue-500 mt-5 text-4xl font-bold mb-4">Your Prediction Results</h1>
-          <p className="text-gray-600 italic text-xl mb-8">
+          <h1 className="mt-5 mb-4 text-4xl font-bold text-blue-500">Your Prediction Results</h1>
+          <p className="mb-8 text-xl italic text-gray-600">
             “Understanding leads to empowerment. No matter the outcome, you are on the right path.”
           </p>
         </header>
@@ -22,7 +22,7 @@ function ResultPage() {
             const highestProbabilityLabel = predicted_class === 0 ? 'No Autism' : 'Autism';
 
             return (
-              <div key={index} className="result mb-8">
+              <div key={index} className="mb-8 result">
                 <p className="text-2xl text-gray-800">
                   <strong>Prediction {index + 1}:</strong>
                 </p>
@@ -30,19 +30,19 @@ function ResultPage() {
                   Diagnosis: <strong className="text-orange-500">{predictionLabel}</strong>
                 </p>
                 <p className="text-xl text-gray-800">
-                  No Autism Probability: <strong className="text-blue-500">{class_0_probability}%</strong>
+                  No Autism Probability: <strong className="text-blue-500">{class_0_probability*100}%</strong>
                 </p>
                 <p className="text-xl text-gray-800">
-                  Autism Probability: <strong className="text-green-500">{class_1_probability}%</strong>
+                  Autism Probability: <strong className="text-green-500">{class_1_probability*100}%</strong>
                 </p>
-                <div className="w-full bg-gray-200 rounded-full h-6 mt-4">
+                <div className="w-full h-6 mt-4 bg-gray-200 rounded-full">
                   <div
                     className={`h-6 rounded-full ${predicted_class === 0 ? 'bg-blue-500' : 'bg-green-500'}`}
                     style={{ width: `${highestProbability*100}%` }}
                   ></div>
                 </div>
-                <p className="text-xl mt-2 text-gray-800">
-                  Highest Probability: <strong className="text-orange-500">{highestProbabilityLabel} ({highestProbability}%)</strong>
+                <p className="mt-2 text-xl text-gray-800">
+                  Highest Probability: <strong className="text-orange-500">{highestProbabilityLabel} ({highestProbability*100}%)</strong>
                 </p>
               </div>
             );
